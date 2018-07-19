@@ -11,7 +11,7 @@
 
   <h1>Check your web:</h1>
   <form id="testFrontend">
-    <input type="url" name="url" id="url" placeholder="https://www.yourwebsite.com" style="width: 292px; height: 36px" size="48" maxlength="2048" required="" pattern="https?://.+" autofocus="autofocus">      <p class="inputHelp">A valid URL must include http:// or https://</p>
+    <input type="url" name="url" id="url" placeholder="https://www.yourwebsite.com" style="width: 400px; height: 36px" size="70" maxlength="2048" required="" pattern="https?://.+" autofocus="autofocus">      <p class="inputHelp">A valid URL must include http:// or https://</p>
       <!-- <input type="text" name="url" id="url" autofocus="autofocus" style="width: 292px; height: 36px">	-->
     <div style="height: 40px; margin-bottom: 19px;">
       <input type="submit" class="btn btn-warning btn-large" value="Get Suggestions" style="float: left; margin-right: 40px;"/>	
@@ -25,38 +25,21 @@
   </p>
 
 </form>
-  <p><div id="results">
-    <div class="suggestionTemplate bd-callout bd-callout-warning" hidden>
-      <h5 class="suggestion-title">Boo</h5>
-      <p class="suggestion-description">Ensure that information denoted by the color is either obvious from the content itself (e.g. the visible text), or is included through alternative means, such as additional text hidden with the class.</p>
+  <p>
+    <h3 class="resultsTitle" id="resultsTitle"></h3>
+    <div id="results">
+      <div class="suggestionTemplate bd-callout bd-callout-warning" hidden>
+        <h5 class="suggestion-title"></h5>
+        <p class="suggestion-description"></p>
+      </div>
     </div>
-  </div></p>
+  </p>
+  <p id="analyzeFinal" class="animatedEllipsis" hidden>
+    Running final tests
+  </p>
+  <p class="congratulations" hidden>Congratulations! FrontendTest did not find any issues with this web site.</p>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="src/js/app.js"></script>
-
-  <script>
-
-    // simply "lifted" from https://stackoverflow.com/questions/901115/how-can-i-get-query-string-values-in-javascript
-    function getParameterByName(name, url) {
-        if (!url) url = window.location.href;
-        name = name.replace(/[\[\]]/g, '\\$&');
-        var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
-            results = regex.exec(url);
-        if (!results) return null;
-        if (!results[2]) return '';
-        return decodeURIComponent(results[2].replace(/\+/g, ' '));
-    }
-
-    $(document).ready(function() {
-      if (getParameterByName('url') !== null) {
-        $('#url').attr('value', getParameterByName('url'));
-        $('#testFrontend').submit();
-      } else {
-        $('#url').attr('placeholder', 'https://www.yourwebsite.com');
-      }
-
-    });
-  </script>
 
 </body>
 </html>

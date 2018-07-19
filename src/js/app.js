@@ -4,12 +4,16 @@ var fet = {
   suggestionTemplate: document.querySelector('.suggestionTemplate'),
   errorMsg: $('#errorMessage'),
   loading: $('.loading'),
+  resultsTitle: $('#resultsTitle'),
+  analyzeFinal: $('#analyzeFinal'),
+  congratulations: $('.congratulations'),
 };
 
  $(document).ready(function() {
   $( "#testFrontend" ).submit(function( event ) {
     event.preventDefault();
 
+    fet.resultsTitle.html('Suggestions for ' + $('#url').val());
     fet.container.html('');
     fet.errorMsg.html('');
     fet.loading.show();
@@ -71,6 +75,35 @@ var fet = {
                 // we are going to assume processing the body with PHP is going to take longer than anything.
                 // so after these suggestions are processed, well hide the spinner.
                 fet.loading.fadeOut();
+
+                // finally, run rule tests that are slow.
+                // put working indicator and messsage at bottom.
+                fet.analyzeFinal.show();
+                $.ajax({
+                  type: "POST",
+                  url: "src/php/analyzeSlowFinal.php?url=" + $('#url').val(),
+                  error: function(err) { 
+                    fet.errorMsg.html('<span class="formSubmittedMsgAlert">Sorry. An error occurred.</span>');
+                    fet.loading.hide();
+                  },
+                  success: function(results) {
+                    // Splits off from how we did the outer tests, and is a mess.
+                    var res = JSON.parse(results);
+                    if(res && !res.status) {
+                      if (res.length > 0) {
+                        res.forEach(function(sug) {
+                          fet.populateAndAddSuggestion(sug);
+                        });
+                      }
+                      // if no suggestions were found, give the a congratulations.
+                      fet.analyzeFinal.fadeOut();
+                      if (fet.container.find('.suggestionTemplate').length === 0) {
+                        fet.congratulations.show();
+                      }
+                    }
+                  }
+                });
+
               }
             }
           });

@@ -21,7 +21,8 @@ function BrokenLinks() {
     $url_array = array();
 
     // max number of link we check
-    $max_resource_tests = 20;
+    // it takes SOOOOO long to test links. Until we can optimze this and set it to be faster, let's make it very low.
+    $max_resource_tests = 15;
 
     // max number of broken links we display
     // therefore, there might be $max_resource_tests broken links but we only show $max_disp_threshold
