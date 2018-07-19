@@ -12,8 +12,7 @@ function TitleMIssingOrNotWithinHead() {
         'category' => ['content'],
     ];
 
-    // RULE CODE 
-    
+    // RULE CODE
     // Search WHOLE DOM for title tag
     $title_elements = $_ft_dom_->getElementsByTagName('title');
 
@@ -25,6 +24,5 @@ function TitleMIssingOrNotWithinHead() {
     }
 
     return false;
-
 }
 ?>

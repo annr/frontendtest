@@ -25,10 +25,6 @@ function MissingImgAltAttributes()
             }
         }		
     }
-    if(count($code[0]) > 0) {
-        if($code[1] > 1) { $code[2] = 's'; }
-        if($code[1] > $max_disp_threshold) { $code[0] .= '...'; }
-    }
 
     // TO-DO: each rule has similar code and it should be reused
     if (count($code[0]) > 0) {
@@ -37,6 +33,9 @@ function MissingImgAltAttributes()
           $instances .= '<code>' . $instance . '</code><br>';
       }
       $sug->description .= $instances;
+      if($code[1] > 1) { $code[2] = 's'; }
+      if($code[1] > $max_disp_threshold) { $sug->description .= '...'; }
+
       return $sug;
     }
 
