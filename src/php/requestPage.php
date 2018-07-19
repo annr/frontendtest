@@ -24,7 +24,6 @@ if ($response && isset($response['url'])) {
     if (!empty($sug)) {
       $response[] = $sug;
     }
-
 }
 
 // this could enclude suggestions or curl error details

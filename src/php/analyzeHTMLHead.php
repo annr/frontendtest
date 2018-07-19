@@ -8,6 +8,8 @@ include 'helpers/common.php';
 include 'rules/DoctypeNotFirstElement.php';
 include 'rules/NotHTML5Doctype.php';
 include 'rules/TitleMIssingOrNotWithinHead.php';
+include 'rules/SetViewport.php';
+include 'rules/IncludeFavicon.php';
 
 $response = makeCurlRequestAndSetDataFromCurl();
 
@@ -21,6 +23,9 @@ if ($response && isset($response['url'])) {
 
   // set the $_ft_dom_element_head_ global
   setDomDocumentHeadElement();
+
+  // set $_ft_web_root_, $_ft_host_... globals
+  setMiscFtGlobals();
 
   // - DoctypeNotFirstElement
   $sug = DoctypeNotFirstElement();
@@ -43,6 +48,18 @@ if ($response && isset($response['url'])) {
 
   // - TitleMIssingOrNotWithinHead
   $sug = TitleMIssingOrNotWithinHead();
+  if (!empty($sug)) {
+    $response[] = $sug;
+  }
+
+  // - SetViewport
+  $sug = SetViewport();
+  if (!empty($sug)) {
+    $response[] = $sug;
+  }
+
+  // - IncludeFavicon
+  $sug = IncludeFavicon();
   if (!empty($sug)) {
     $response[] = $sug;
   }

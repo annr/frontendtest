@@ -7,6 +7,7 @@ include 'helpers/common.php';
  */
 include 'rules/DuplicateIDs.php';
 include 'rules/MissingImgAltAttributes.php';
+include 'rules/ClassOrIDSameAsAvailableTag.php';
 
 $response = makeCurlRequestAndSetDataFromCurl();
 
@@ -21,6 +22,9 @@ if ($response && isset($response['url'])) {
 
   // set the $_ft_dom_element_body_ global
   setDomDocumentBodyElement();
+
+  // set $_ft_web_root_, $_ft_host_... globals
+  setMiscFtGlobals();
 
   // there must be a more efficient way of
   // adding suggestions to response, but for 
@@ -38,6 +42,11 @@ if ($response && isset($response['url'])) {
     $response[] = $sug;
   }
 
+  // - ClassOrIDSameAsAvailableTag
+  $sug = ClassOrIDSameAsAvailableTag();
+  if (!empty($sug)) {
+    $response[] = $sug;
+  }
 }
 
 // this could enclude suggestions or curl error details
