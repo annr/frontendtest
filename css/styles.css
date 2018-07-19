@@ -1,7 +1,9 @@
+#secondary {
+	margin-bottom: 30px;
+}
 
-
-html, body {
-  padding: 20px;
+input#url {
+	font-size: 18px;
 }
 
 .bd-callout {
@@ -55,7 +57,7 @@ h5 {
   line-height: 1.6 !important;
 }
 .inputHelp {
-    font-size: smaller;
+    font-size: 9pt;
     color: #666;
     margin-bottom: 16px;
 }
@@ -64,14 +66,14 @@ h5 {
   float: left;
 }
 
-  .loading #spinner {
-    box-sizing: border-box;
-    stroke: #673AB7;
-    stroke-width: 3px;
-    -webkit-transform-origin: 50%;
-            transform-origin: 50%;
-    -webkit-animation: line 1.6s cubic-bezier(0.4, 0, 0.2, 1) infinite, rotate 1.6s linear infinite;
-            animation: line 1.6s cubic-bezier(0.4, 0, 0.2, 1) infinite, rotate 1.6s linear infinite; }
+.loading #spinner {
+  box-sizing: border-box;
+  stroke: #673AB7;
+  stroke-width: 3px;
+  -webkit-transform-origin: 50%;
+          transform-origin: 50%;
+  -webkit-animation: line 1.6s cubic-bezier(0.4, 0, 0.2, 1) infinite, rotate 1.6s linear infinite;
+          animation: line 1.6s cubic-bezier(0.4, 0, 0.2, 1) infinite, rotate 1.6s linear infinite; }
 
 @-webkit-keyframes rotate {
   from {

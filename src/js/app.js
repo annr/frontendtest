@@ -1,9 +1,8 @@
-
 var fet = {
   title: 'FrontendTest',
   container: $('#results'),
   suggestionTemplate: document.querySelector('.suggestionTemplate'),
-  errorMsg: $('#errorMsg'),
+  errorMsg: $('#errorMessage'),
   loading: $('.loading'),
 };
 
@@ -20,7 +19,7 @@ var fet = {
       url: "src/php/requestPage.php?url=" + $('#url').val(),
       data: $("#testFrontend").serialize(),
       error: function(err) {
-        fet.errorMsg.html('<span class="formSubmittedMsgAlert">Sorry. An error occurred.</span>');				
+        fet.errorMsg.html('<span class="formSubmittedMsgAlert">Sorry. An error occurred.</span>');
         fet.loading.hide();
       },
       success: function(data) {
@@ -36,34 +35,34 @@ var fet = {
           $.ajax({
             type: "POST",
             url: "src/php/analyzeHTMLHead.php?url=" + $('#url').val(),
-            error: function(err) { 
-              fet.errorMsg.html('<span class="formSubmittedMsgAlert">Sorry. An error occurred.</span>');				
+            error: function(err) {
+              fet.errorMsg.html('<span class="formSubmittedMsgAlert">Sorry. An error occurred.</span>');
               fet.loading.hide();
             },
             success: function(results) {
               // Splits off from how we did the outer tests, and is a mess.
               var res = JSON.parse(results);
-              if(res && !res.status) {	
+              if(res && !res.status) {
                 if (res.length > 0) {
                   res.forEach(function(sug) {
                     fet.populateAndAddSuggestion(sug);
                   });
                 }
               }
-            }	
+            }
           });
 
           $.ajax({
             type: "POST",
             url: "src/php/analyzeHTMLBody.php?url=" + $('#url').val(),
             error: function(err) { 
-              fet.errorMsg.html('<span class="formSubmittedMsgAlert">Sorry. An error occurred.</span>');				
+              fet.errorMsg.html('<span class="formSubmittedMsgAlert">Sorry. An error occurred.</span>');
               fet.loading.hide();
             },
             success: function(results) {
               // Splits off from how we did the outer tests, and is a mess.
               var res = JSON.parse(results);
-              if(res && !res.status) {	
+              if(res && !res.status) {
                 if (res.length > 0) {
                   res.forEach(function(sug) {
                     fet.populateAndAddSuggestion(sug);
@@ -73,18 +72,18 @@ var fet = {
                 // so after these suggestions are processed, well hide the spinner.
                 fet.loading.fadeOut();
               }
-            }	
+            }
           });
               
         } else {
-          if(data && data.curl_error) {
-            fet.errorMsg.html('<span class="formSubmittedMsgAlert">' + data.curl_error + '</span>');	
+          if(res && res.curl_error) {
+            fet.errorMsg.html('<span class="formSubmittedMsgAlert">' + res.curl_error + '</span>');
           } else {
-            fet.errorMsg.html('<span class="formSubmittedMsgAlert">Error requesting page.</span>');	
+            fet.errorMsg.html('<span class="formSubmittedMsgAlert">Error requesting page.</span>');
           }
           fet.loading.fadeOut();
         }
-      }	
+      }
     });
   });
 
