@@ -322,8 +322,8 @@ function getAbsoluteResourceLink($page_link)
 function httpBadStatusCode($url)
 {
     $headers = @get_headers($url, 1);
-  
-    //not being able to get headers is an indication (to me!) that it has a bad status code. 
+
+    //not being able to get headers is an indication (to me!) that it has a bad status code
     //it's the case with http://mdch.at/lG4hzm linked from http://mdchat.org/
     if(!$headers) { return true; }
 
