@@ -27,6 +27,7 @@ if ($response && isset($response['url'])) {
 }
 
 // this could enclude suggestions or curl error details
+header('Content-Type: application/json');
 echo json_encode($response);
 
 ?>

@@ -119,7 +119,10 @@ h5 {
     -webkit-transform: rotate(90deg);
             transform: rotate(90deg); } 
 }
-
+.urlToProcess {
+  font-family: 'Courier New', Courier, monospace;
+  color: green;
+}
 .animatedEllipsis:after {
   overflow: hidden;
   display: inline-block;

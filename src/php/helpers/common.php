@@ -20,13 +20,13 @@ function makeCurlRequestAndSetDataFromCurl() {
     $_ft_data_ = curl_exec($ch);
 
     if (curl_errno($ch)) {
-    // If this happens this is all we do;
-    // everything else is in the else statement.
-    $response = [
-        'status' => 'error',
-        'curl_error_number' => curl_errno($ch),
-        'curl_error' => curl_error($ch)
-    ];
+        // If this happens this is all we do;
+        // everything else is in the else statement.
+        $response = [
+            'status' => 'error',
+            'curl_error_number' => curl_errno($ch),
+            'curl_error' => curl_error($ch)
+        ];
     } else {
         $_ft_request_headers_ = curl_getinfo($ch);
         $response = $_ft_request_headers_;

@@ -45,9 +45,8 @@ function ClassOrIDSameAsAvailableTag()
         }
         $sug->description .= $instances;
         return $sug;
-    }				
+    }
 
     return false;
 }
 ?>
-    
