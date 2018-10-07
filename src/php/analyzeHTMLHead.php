@@ -27,11 +27,12 @@ if ($response && isset($response['url'])) {
   // set $_ft_web_root_, $_ft_host_... globals
   setMiscFtGlobals();
 
+  // REMOVING DoctypeNotFirstElement. IT IS HANDLED BY THE  W3C NU VALIDATOR
   // - DoctypeNotFirstElement
-  $sug = DoctypeNotFirstElement();
-  if (!empty($sug)) {
-    $response[] = $sug;
-  }
+  // $sug = DoctypeNotFirstElement();
+  // if (!empty($sug)) {
+  //   $response[] = $sug;
+  // }
 
   //  - NotHTML5Doctype
   // 
@@ -46,11 +47,12 @@ if ($response && isset($response['url'])) {
     }
   }
 
+  // REMOVING TitleMIssingOrNotWithinHead. IT IS HANDLED BY THE  W3C NU VALIDATOR
   // - TitleMIssingOrNotWithinHead
-  $sug = TitleMIssingOrNotWithinHead();
-  if (!empty($sug)) {
-    $response[] = $sug;
-  }
+  // $sug = TitleMIssingOrNotWithinHead();
+  // if (!empty($sug)) {
+  //   $response[] = $sug;
+  // }
 
   // - SetViewport
   $sug = SetViewport();

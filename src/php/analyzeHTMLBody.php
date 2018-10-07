@@ -31,16 +31,20 @@ if ($response && isset($response['url'])) {
   // now I'm trying to work as fast as possible
 
   // - HasDuplicateIDs
-  $sug = DuplicateIDs();
-  if (!empty($sug)) {
-    $response[] = $sug;
-  }
+
+  // REMOVING HasDuplicateIDs. IT IS HANDLED BY THE  W3C NU VALIDATOR
+  // $sug = DuplicateIDs();
+  // if (!empty($sug)) {
+  //   $response[] = $sug;
+  // }
 
   // - MissingImgAltAttributes
-  $sug = MissingImgAltAttributes();
-  if (!empty($sug)) {
-    $response[] = $sug;
-  }
+
+    // REMOVING MissingImgAltAttributes. IT IS HANDLED BY THE  W3C NU VALIDATOR
+  // $sug = MissingImgAltAttributes();
+  // if (!empty($sug)) {
+  //   $response[] = $sug;
+  // }
 
   // - ClassOrIDSameAsAvailableTag
   $sug = ClassOrIDSameAsAvailableTag();

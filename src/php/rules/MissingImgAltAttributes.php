@@ -1,4 +1,8 @@
 <?php
+//======================================================================
+// RULE DEPRECATED. We check this using https://validator.w3.org/ now.
+//======================================================================
+
 function MissingImgAltAttributes()
 {
     $sug = (object) [

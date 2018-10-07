@@ -10,7 +10,7 @@ function SetViewport()
 
     $sug = (object) [
         'title' => 'Set viewport for mobile devices',
-        'description' => 'Without the META viewport tag set, pages are rendered too zoomed out and the content on narrow screen becomes too small to be legible. There is a nice and easy fix though. Add this tag within &lt;head&gt; tags: <br><br><code>&lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;</code>',
+        'description' => 'Without the META viewport tag set, pages are rendered too zoomed out and the content on narrow screen becomes too small to be legible. Add this tag within &lt;head&gt; tags: <br><br><code>&lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;</code>',
         'weight' => 40,
         'category' => ['mobile'],
     ];

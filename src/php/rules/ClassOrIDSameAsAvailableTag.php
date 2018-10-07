@@ -4,7 +4,7 @@ function ClassOrIDSameAsAvailableTag()
     // GLOBALS
     global $_ft_dom_;
     $sug = (object) [
-        'title' => 'Suspicious class names or ids found',
+        'title' => 'Suspicious class names or IDs found',
         'description' => 'Class names or id attribute values matching HTML5 tags were found. Semantic HTML is preferred, so use the HTML5 element instead. For example, use <code>' . htmlentities('<section>...</section>') . '</code> not <code>' . htmlentities('<div class="section">...</div>') . '</code><br>',
         'weight' => 10,
         'category' => ['content'],

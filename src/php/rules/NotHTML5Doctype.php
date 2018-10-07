@@ -1,4 +1,7 @@
 <?php
+//======================================================================
+// RULE DEPRECATED. We check this using https://validator.w3.org/ now.
+//======================================================================
 
 /* 
  * An example of an XML-style doctype is: 
