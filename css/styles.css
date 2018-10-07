@@ -2,38 +2,61 @@ input#url {
 	font-size: 18px;
 }
 
+/*
+ * Callouts
+ *
+ * Not quite alerts, but custom and helpful notes for folks reading the docs.
+ * Requires a base and modifier class.
+ */
+
+/* Common styles for all types */
 .bd-callout {
-  padding: 1.25rem;
-  margin-top: 1.25rem;
-  margin-bottom: 1.25rem;
+  padding: 20px;
+  margin: 20px 0;
   border: 1px solid #eee;
-  border-left-width: .25rem;
-  border-radius: .25rem;
+  border-left-width: 5px;
+  border-radius: 3px;
+}
+.bd-callout h4 {
+  margin-top: 0;
+  margin-bottom: 5px;
+}
+.bd-callout p:last-child {
+  margin-bottom: 0;
+}
+.bd-callout code {
+  border-radius: 3px;
 }
 
-.bd-callout-info {
-  border-left-color: #5bc0de;
+/* Tighten up space between multiple callouts */
+.bd-callout + .bd-callout {
+  margin-top: -5px;
 }
 
-.bd-callout-info h4 {
-  color: #5bc0de;
-}
-
-.bd-callout-warning {
-  border-left-color: #f0ad4e;
-}
-
-.bd-callout-warning h4 {
-  color: #f0ad4e;
-}
-
+/* Variations */
 .bd-callout-danger {
-  border-left-color: #d9534f;
+  border-left-color: #ce4844;
+}
+.bd-callout-danger h4 {
+  color: #ce4844;
+}
+.bd-callout-warning {
+  border-left-color: #aa6708;
+}
+.bd-callout-warning h4 {
+  color: #aa6708;
+}
+.bd-callout-info {
+  border-left-color: #1b809e;
+}
+.bd-callout-info h4 {
+  color: #1b809e;
 }
 
-.bd-callout-danger h4 {
-  color: #d9534f;
-}
+
+
+
+
 .congratulations {
   color: #008000;
   font-size: larger;
@@ -44,11 +67,15 @@ p {
   margin-top: 15px;
 }
 .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
-  margin-bottom: .5rem !important;
+  margin-bottom: .5rem;
   font-family: inherit;
   font-weight: 500;
   line-height: 1.2;
   color: inherit;
+}
+
+.hidden-suggestion-desc {
+  display: none;
 }
 
 h5 {

@@ -10,7 +10,7 @@ var fet = {
     genericErrorMessage: 'Sorry 😬. An error occurred.',
     testString: 'giraffe',
     getResultsTitle: function (url) {
-        return 'Suggestions for <span class="urlToProcess">' + url + '</span>:'
+        return 'Suggestions for <span class="urlToProcess">' + url + '</span>'
     },
     unsetMessages: function () {
         fet.container.html('');
@@ -76,7 +76,7 @@ $(document).ready(function () {
 
                     $.ajax({
                         type: "POST",
-                        url: "src/php/analyzeHTMLBody.php?url=" + $('#url').val(),
+                        url: "src/php/validateHTML.php?url=" + $('#url').val(),
                         error: function (err) {
                             fet.showError(err);
                         },
@@ -96,6 +96,17 @@ $(document).ready(function () {
 
                                 $.ajax({
                                     type: "POST",
+                                    url: "src/php/analyzeHTMLBody.php?url=" + $('#url').val(),
+                                    error: function (err) {
+                                        fet.showError(err);
+                                    },
+                                    success: function (results) {
+                                        fet.showResults(results);
+                                    }
+                                });
+
+                                $.ajax({
+                                    type: "POST",
                                     url: "src/php/analyzeSlowFinal.php?url=" + $('#url').val(),
                                     error: function (err) {
                                         fet.showError(err);
@@ -110,6 +121,7 @@ $(document).ready(function () {
                                         }
                                     }
                                 });
+
                             }
                         }
 
@@ -117,8 +129,8 @@ $(document).ready(function () {
                 } else {
                     fet.analysisSteps.html('');
                     fet.resultsTitle.html('');
-                    if (res && res.curl_error) {
-                        fet.errorMsg.html(res.curl_error);
+                    if (results && results.curl_error) {
+                        fet.errorMsg.html(results.curl_error);
                     } else {
                         fet.errorMsg.html('Error requesting page.');
                     }
@@ -131,6 +143,7 @@ $(document).ready(function () {
 
 });
 
+// TODO: Update this part to use jQuery
 fet.populateAndAddSuggestion = function (sug) {
     // bad mix of jQuery and raw
     var suggestion = fet.suggestionTemplate.cloneNode(true);
@@ -145,8 +158,12 @@ fet.populateAndAddSuggestion = function (sug) {
 
     suggestion.className = suggestion.className + ' ' + calloutClass;
     suggestion.querySelector('.suggestion-title').textContent = sug.title;
+
+    // w3c descriptions can be optional, so only show the element if a desc comes back 
+    if (!sug.description) {
+        suggestion.querySelector('.suggestion-description').className = 'suggestion-description hidden-suggestion-desc'
+    }
     suggestion.querySelector('.suggestion-description').innerHTML = sug.description;
     suggestion.removeAttribute('hidden');
-
     fet.container.append(suggestion);
 };
