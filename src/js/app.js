@@ -9,6 +9,8 @@ var fet = {
     congratulations: $('.congratulations'),
     genericErrorMessage: 'Sorry 😬. An error occurred.',
     testString: 'giraffe',
+    maxResults: 10,
+    resultsCount: 0,
     getResultsTitle: function (url) {
         return 'Suggestions for <span class="urlToProcess">' + url + '</span>'
     },
@@ -29,6 +31,7 @@ var fet = {
         if (results && !results.status) {
             if (Array.isArray(results) && results.length > 0) {
                 results.forEach(function (sug) {
+                    fet.resultsCount++;
                     fet.populateAndAddSuggestion(sug);
                 });
             }
@@ -39,6 +42,7 @@ var fet = {
 $(document).ready(function () {
     $("#testFrontend").submit(function (event) {
         event.preventDefault();
+        fet.resultsCount = 0;
         // this will never happen, and is not necessary.
         if (!$('#url').val()) {
             fet.errorMsg.html('No URL provided.');
@@ -61,7 +65,6 @@ $(document).ready(function () {
             success: function (results) {
                 // we only include 'status' if something goes wrong.
                 if (results && !results.status) {
-
                     fet.showResults(results);
                     $.ajax({
                         type: "POST",
@@ -83,9 +86,20 @@ $(document).ready(function () {
                         success: function (results) {
                             if (results && !results.status) {
 
-                                fet.showResults(results);
+                                // the W3C validation step often has many results.
+                                // we want to show a maximum of 10, so we will take
+                                // a subset of these if necessary.
+
+                                // fet.resultsCount could not possibly be more than maxResults FOR NOW,
+                                // but this could change and there is potentially a terrible bug here.
+                                // I don't care. This is a free service, mostly used by myself.
+                                const keepSpace = 2;
+                                let showNow = results.slice(0, fet.maxResults - (fet.resultsCount + keepSpace));
+                                fet.resultsPen = results.slice(fet.maxResults - (fet.resultsCount + keepSpace));
+
+                                fet.showResults(showNow);
                                 // we are going to assume processing the body with PHP is going to take longer than anything.
-                                // so after these suggestions are processed, well hide the spinner.
+                                // so after these suggestions are processed, we'll hide the spinner.
                                 fet.loading.fadeOut();
 
                                 // finally, run rule tests that are slow.
@@ -113,10 +127,14 @@ $(document).ready(function () {
                                     },
                                     success: function (results) {
                                         fet.showResults(results);
-                                        // if no suggestions were found, congratulate.
+
+                                        // we held some results back. Show as many as we have slots left
+                                        fet.showResults(fet.resultsPen.slice(0, fet.maxResults - fet.resultsCount));
+
                                         fet.analysisSteps.removeClass('animatedEllipsis');
                                         fet.analysisSteps.html('Done.');
-                                        if (fet.container.find('.suggestionTemplate').length === 0) {
+                                        // if no suggestions were found, congratulate.
+                                        if (fet.resultsCount === 0) {
                                             fet.congratulations.show();
                                         }
                                     }
@@ -157,9 +175,9 @@ fet.populateAndAddSuggestion = function (sug) {
     }
 
     suggestion.className = suggestion.className + ' ' + calloutClass;
-    suggestion.querySelector('.suggestion-title').textContent = sug.title;
+    suggestion.querySelector('.suggestion-title').textContent = '(' + fet.resultsCount + ') ' + sug.title;
 
-    // w3c descriptions can be optional, so only show the element if a desc comes back 
+    // w3c descriptions can be optional, so only show the element if a desc comes back
     if (!sug.description) {
         suggestion.querySelector('.suggestion-description').className = 'suggestion-description hidden-suggestion-desc'
     }
