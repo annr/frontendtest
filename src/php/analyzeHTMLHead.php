@@ -7,7 +7,7 @@ include 'helpers/common.php';
  */
 include 'rules/DoctypeNotFirstElement.php';
 include 'rules/NotHTML5Doctype.php';
-include 'rules/TitleMIssingOrNotWithinHead.php';
+
 include 'rules/SetViewport.php';
 include 'rules/IncludeFavicon.php';
 
@@ -27,7 +27,7 @@ if ($response && isset($response['url'])) {
   // set $_ft_web_root_, $_ft_host_... globals
   setMiscFtGlobals();
 
-  // REMOVING DoctypeNotFirstElement. IT IS HANDLED BY THE  W3C NU VALIDATOR
+  // REMOVING DoctypeNotFirstElement. IT IS HANDLED BY THE W3C NU VALIDATOR
   // - DoctypeNotFirstElement
   // $sug = DoctypeNotFirstElement();
   // if (!empty($sug)) {
@@ -47,13 +47,6 @@ if ($response && isset($response['url'])) {
     }
   }
 
-  // REMOVING TitleMIssingOrNotWithinHead. IT IS HANDLED BY THE  W3C NU VALIDATOR
-  // - TitleMIssingOrNotWithinHead
-  // $sug = TitleMIssingOrNotWithinHead();
-  // if (!empty($sug)) {
-  //   $response[] = $sug;
-  // }
-
   // - SetViewport
   $sug = SetViewport();
   if (!empty($sug)) {
@@ -65,9 +58,7 @@ if ($response && isset($response['url'])) {
   if (!empty($sug)) {
     $response[] = $sug;
   }
-
 }
-
 // this could enclude suggestions or curl error details
 header('Content-Type: application/json');
 echo json_encode($response);

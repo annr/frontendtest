@@ -31,9 +31,7 @@ function makeCurlRequestAndSetDataFromCurl() {
         $_ft_request_headers_ = curl_getinfo($ch);
         $response = $_ft_request_headers_;
     }
-
     curl_close($ch);
-
     // This is our local response. It will either contain an error or http_headers
     return $response;
 }
@@ -281,6 +279,8 @@ function setMiscFtGlobals()
 
 function getAbsoluteResourceLink($page_link)
 {
+    // https://stackoverflow.com/questions/15770903/check-if-links-are-broken-in-php
+
     global $_ft_url_root_;
     global $_ft_web_root_;
 
