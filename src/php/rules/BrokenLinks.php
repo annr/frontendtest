@@ -47,10 +47,10 @@ function BrokenLinks() {
             if(!in_array($link->getAttribute('href'),$url_array))
             {
                 $url = getAbsoluteResourceLink($link->getAttribute('href'));
-                if(httpBadStatusCode($url)) { 
+                if(httpBadStatusCode($url)) {
                     $code[1]++;
-                    if($code[1] <= $max_disp_threshold) { 
-                        $code[0][] = printCodeWithLineNumber($link); 
+                    if($code[1] <= $max_disp_threshold) {
+                        $code[0][] = printCodeWithLineNumber($link);
                     }
                 }
                 $url_array[] = $link->getAttribute('href');
@@ -66,17 +66,19 @@ function BrokenLinks() {
 
     foreach ($links as $link) {
         if($link->hasAttribute('href')) {
-            if(!in_array($link->getAttribute('href'),$url_array))
-            {
-                $url = getAbsoluteResourceLink($link->getAttribute('href'));
-                if(httpBadStatusCode($url)) { 
-                    $code[1]++;
-                    if($code[1] <= $max_disp_threshold) { 
-                        $code[0][] = printCodeWithLineNumber($link); 
+            if ($link->hasAttribute('rel') && $link->getAttribute('rel') !== 'dns-prefetch' && $link->getAttribute('rel') !== 'alternate') {
+                if(!in_array($link->getAttribute('href'),$url_array))
+                {
+                    $url = getAbsoluteResourceLink($link->getAttribute('href'));
+                    if(httpBadStatusCode($url)) {
+                        $code[1]++;
+                        if($code[1] <= $max_disp_threshold) {
+                            $code[0][] = printCodeWithLineNumber($link);
+                        }
                     }
+                    $url_array[] = $link->getAttribute('href');
                 }
-                $url_array[] = $link->getAttribute('href');
-            } 
+            }
         }
         //don't try to do too many.
         if(count($url_array) > $max_resource_tests) {
@@ -91,10 +93,10 @@ function BrokenLinks() {
             if(!in_array($img->getAttribute('src'),$url_array))
             {
                 $url = getAbsoluteResourceLink($img->getAttribute('src'));
-                if(httpBadStatusCode($url)) { 
+                if(httpBadStatusCode($url)) {
                     $code[1]++;
-                    if($code[1] <= $max_disp_threshold) { 
-                        $code[0][] = printCodeWithLineNumber($img); 
+                    if($code[1] <= $max_disp_threshold) {
+                        $code[0][] = printCodeWithLineNumber($img);
                     }
                 }
                 $url_array[] = $img->getAttribute('src');
@@ -106,7 +108,6 @@ function BrokenLinks() {
         }
     }
 
-    
     $scripts = $element->getElementsByTagName('script');
 
     foreach ($scripts as $script) {
@@ -131,7 +132,7 @@ function BrokenLinks() {
     }
 
     if(count($url_array) > $max_resource_tests) {
-        $code[3] = "<br><br>NOTE: By default, FrontendTest checks a maximum of $max_resource_tests links, which it reached. Either fix the broken links shown and run FrontendTest again, or use a more thorough broken link checking tool.";
+        $code[3] = "<br><br>NOTE: Link checking is very slow. By default, FrontendTest checks a maximum of $max_resource_tests links, which it reached. Either fix the broken links shown and run FrontendTest again, or use a more thorough broken link checkinger.";
     }
 
     // broken links we give a weight of 30 and then multiply all the instances by 3 and add to that.
