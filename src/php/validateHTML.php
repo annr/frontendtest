@@ -33,6 +33,7 @@ $request_url = $api_url . $_ft_url;
         $location = '';
         $extract ='';
         $description = null;
+        $title = $message->message;
         if ($message->type === 'error') {
             if (!empty($message->lastLine) && !empty($message->firstColumn) && !empty($message->lastColumn)) {
                 $location = 'From line ' .$message->lastLine .', column ' . $message->firstColumn . '; to line ' . $message->lastLine . ', column ' . $message->lastColumn . ':<br>';
@@ -43,8 +44,16 @@ $request_url = $api_url . $_ft_url;
             if (!empty($location) && !empty($extract)) {
                 $description = $location . $extract;
             }
+            // overrides
+            // these tests are very brittle -- they require the language returning just so.
+            if (strpos($title, 'The character encoding was not declared.') !== false) {
+                $title = 'Include <meta charset="utf-8"/> in <head>';
+                $description = 'From <a href="https://www.w3.org/International/questions/qa-html-encoding-declarations" target="_blank" rel="noopener">Declaring character encodings in HTML</a>';
+                $description .= ' ...always specify the encoding used for an HTML or XML page. If you don\'t, you risk that characters in your content are incorrectly interpreted.';
+            }
+            //start tag to declare the language of this document.
             $sug = (object) [
-                'title' => $message->message,
+                'title' => $title,
                 'description' => $description,
                 'weight' => 70,
                 'category' => ['w3c-validation'],
@@ -54,6 +63,17 @@ $request_url = $api_url . $_ft_url;
 
         if ($message->type === 'info') { 
             $count_warnings++;
+            if (strpos($title, 'start tag to declare the language of this document') !== false) {
+                $title = 'Consider adding a lang attribute to the html start tag to declare the language of this document.';
+                $description = '<a href="https://www.w3.org/International/getting-started/language" target="_blank" rel="noopener">Language on the Web</a>';
+                $sug = (object) [
+                    'title' => $title,
+                    'description' => $description,
+                    'weight' => 30,
+                    'category' => ['w3c-validation'],
+                ];
+                $response[] = $sug;
+            }
         }
     }
     if ($count_warnings >= $WARNINGS_THRESHOLD) {

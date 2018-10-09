@@ -5,8 +5,6 @@ include 'helpers/common.php';
  * 
  * We run the following tests in this script:
  */
-include 'rules/DoctypeNotFirstElement.php';
-include 'rules/NotHTML5Doctype.php';
 
 include 'rules/SetViewport.php';
 include 'rules/IncludeFavicon.php';
@@ -26,26 +24,6 @@ if ($response && isset($response['url'])) {
 
   // set $_ft_web_root_, $_ft_host_... globals
   setMiscFtGlobals();
-
-  // REMOVING DoctypeNotFirstElement. IT IS HANDLED BY THE W3C NU VALIDATOR
-  // - DoctypeNotFirstElement
-  // $sug = DoctypeNotFirstElement();
-  // if (!empty($sug)) {
-  //   $response[] = $sug;
-  // }
-
-  //  - NotHTML5Doctype
-  // 
-  //   SPECIAL CONDITIONAL RULE: Only test for HTML5 DOCTYPE if DOCTYPE is 
-  //   first element. First things first. Although I think these rules could 
-  //   be combined or re-thought
-
-  if (false === DoctypeNotFirstElement()) {
-    $sug = NotHTML5Doctype();
-    if (!empty($sug)) {
-      $response[] = $sug;
-    }
-  }
 
   // - SetViewport
   $sug = SetViewport();

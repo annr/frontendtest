@@ -12,7 +12,7 @@ var fet = {
     maxResults: 10,
     resultsCount: 0,
     getResultsTitle: function (url) {
-        return 'Suggestions for <span class="urlToProcess">' + url + '</span>'
+        return 'Getting results for <span class="urlToProcess"> ' + url + '</span > '
     },
     unsetMessages: function () {
         fet.container.html('');
