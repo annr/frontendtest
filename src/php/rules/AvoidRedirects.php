@@ -8,7 +8,7 @@ function AvoidRedirects()
         'title' => 'Avoid Redirects',
         'description' => 'From your input URL, ' .
           $_ft_url_ . 
-          ' , to the ultimately served URL, ' . 
+          ', to the ultimately served URL, ' .
           $_ft_request_headers_['url'] . 
           ' you have ' . $_ft_request_headers_['redirect_count'] .
           ' redirects. Your site will be faster if you reduce them.',

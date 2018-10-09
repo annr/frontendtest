@@ -23,8 +23,6 @@ if ($response && isset($response['url'])) {
   // set $_ft_web_root_, $_ft_host_... globals
   setMiscFtGlobals();
 
-  // Start Rules:
-
   // - BrokenLinks
   $sug = BrokenLinks();
   if (!empty($sug)) {
@@ -33,6 +31,6 @@ if ($response && isset($response['url'])) {
 
 }
 // this could enclude suggestions or curl error details
-//header('Content-Type: application/json');
+header('Content-Type: application/json');
 echo json_encode($response);
 ?>

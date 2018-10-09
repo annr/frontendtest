@@ -1,8 +1,6 @@
 # Check Your Web
 
-*frontendtest* checks web pages and web apps for valid markup, broken links, a11y requirements, and web performance best practices...etc.
-
-(FrontendTest)[https://frontendtest.com/]
+https://frontendtest.com/ checks web pages and web apps for valid markup, broken links, a11y requirements, and web performance best practices...etc.
 
 Note: this is an old, salvaged project written in PHP and it's still PHP.
 
@@ -11,6 +9,7 @@ Note: this is an old, salvaged project written in PHP and it's still PHP.
 - replace homegrown link checking with https://validator.w3.org/checklink
 - update all of app.js to use jQuery
 - add small w3c icon to the Nu Validator results
+- confirm requests to APIs break gracefully
 
 ### Rules to be added or improved:
 

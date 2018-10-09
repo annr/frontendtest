@@ -2,11 +2,7 @@
 include 'helpers/common.php';
 
 /* This is the third step and request.
- * 
- * We run the following tests in this script:
  */
-include 'rules/DuplicateIDs.php';
-include 'rules/MissingImgAltAttributes.php';
 include 'rules/ClassOrIDSameAsAvailableTag.php';
 
 $response = makeCurlRequestAndSetDataFromCurl();
@@ -25,26 +21,6 @@ if ($response && isset($response['url'])) {
 
   // set $_ft_web_root_, $_ft_host_... globals
   setMiscFtGlobals();
-
-  // there must be a more efficient way of
-  // adding suggestions to response, but for 
-  // now I'm trying to work as fast as possible
-
-  // - HasDuplicateIDs
-
-  // REMOVING HasDuplicateIDs. IT IS HANDLED BY THE  W3C NU VALIDATOR
-  // $sug = DuplicateIDs();
-  // if (!empty($sug)) {
-  //   $response[] = $sug;
-  // }
-
-  // - MissingImgAltAttributes
-
-    // REMOVING MissingImgAltAttributes. IT IS HANDLED BY THE  W3C NU VALIDATOR
-  // $sug = MissingImgAltAttributes();
-  // if (!empty($sug)) {
-  //   $response[] = $sug;
-  // }
 
   // - ClassOrIDSameAsAvailableTag
   $sug = ClassOrIDSameAsAvailableTag();
